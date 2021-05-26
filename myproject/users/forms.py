@@ -6,13 +6,13 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
 
 
-class LoginForm(FlaskForm, UserMixin):
+class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 
-class RegisterForm(FlaskForm, UserMixin):
+class RegisterForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     surname = StringField('Surname', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
