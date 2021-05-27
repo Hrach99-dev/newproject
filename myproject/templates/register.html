@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Registration Page {% endblock %}
+
+{% block content %}
+    
+    <div class="col">
+        <div class="h-100 p-5 bg-light border rounded-3 text-center">
+            <form method="POST">
+                {{form.hidden_tag()}}
+                {{form.name(placeholder='Enter a name')}}
+                {{form.surname(placeholder='Enter a surname')}}
+                {{form.email(placeholder='Enter a email')}}
+                {{form.phone(placeholder='Enter a phone')}}
+                {{form.password(placeholder='Enter a password')}}
+                {{form.pass_confirm(placeholder='Confirm Password')}}
+                {{form.submit()}}
+            </form>
+        </div>
+    </div>
+        
+{% endblock %}

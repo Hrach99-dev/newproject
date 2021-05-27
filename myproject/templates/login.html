@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Login Page {% endblock %}
+
+{% block content %}
+    
+        
+    <div class="col">
+        <div class="h-100 p-5 bg-light border rounded-3 text-center">
+            <form method="POST"></form>
+                {{form.hidden_tag()}}
+                {{form.email(placeholder='Enter a email')}}
+                {{form.password(placeholder='Enter a password')}}
+                {{form.submit()}}
+            </form>
+        </div>
+    </div>
+        
+    
+{% endblock %}
