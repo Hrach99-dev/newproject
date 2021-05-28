@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     profile_image = db.Column(db.String(128), nullable=False, default='default_profile_image.png')
     password_hash = db.Column(db.String(128))
 
-    products = db.relationship('Product', backref='users', lazy=True)
+    products = db.relationship('Product', backref='author', lazy=True)
 
     def __init__(self, name, surname, phone, email, password) -> None:
         self.name = name
@@ -47,7 +47,7 @@ class Product(db.Model, UserMixin):
     product_name = db.Column(db.String(64), nullable=False)
     product_info = db.Column(db.Text, nullable=False)
     product_price = db.Column(db.String(64), nullable=False)
-    product_image = db.Column(db.String(128), nullable=False)
+    # product_image = db.Column(db.String(128), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __init__(self, product_name, product_info, product_price, user_id) -> None:

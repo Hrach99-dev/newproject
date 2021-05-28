@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %} {% endblock %}
+
+{% block content %}
+    
+    <div class="col">
+        <div class="h-100 p-5 bg-light border rounded-3 text-center">
+            <h1>Welcome to the page for {{user.name}}</h1>
+            <img src="{{url_for('static', filename='profile_pics/'user.profile_image)}}">
+        </div>
+    </div>
+    {% for post in product_posts.items() %}
+        <h2><a href="{{url_for('product_posts.product_post', product_post_id=post.id)}}">{{post.product_name}}</a></h2>
+        Written By: <a href="{{url_for(users.user_posts, email=post.author.email)}}">{{post.author.name}} {{post.author.surname}}</a>
+        <p class="text-muted">Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
+        <br>
+        <p>{{post.product_info}}</p>
+        <p>{{post.product_price}}</p>
+        <br>
+    {% endfor %}
+
+    <nav aria-label="Page Navigation example">
+        <ul class="pagination justify-content-center">
+            {% for page_num in product_posts.iter_pages(left_edge=1,right_egde=1,left_current=1,right_current=2) %}
+                {% if product_posts.page == page_num %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="url_for('users.user_posts', email=user.email, page=page_num)">{{page_num}}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item"> 
+                        <a class="page-link" href="url_for('users.user_posts', email=user.email, page=page_num)">{{page_num}}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        
+    </nav>
+{% endblock %}
