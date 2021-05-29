@@ -5,9 +5,42 @@
 
 {% block content %}
     
-<div class="col">
-    <div class="h-100 p-5 bg-light border rounded-3 text-center">
-        <h1>Welcome</h1>
+    <div class="col">
+        <div class="h-100 p-5 bg-light border rounded-3 text-center">
+            <h1>Welcome</h1>
+        </div>
     </div>
-</div>
+
+    {% for post in product_posts.items%}
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h2>
+                    <a class="card-title" href="{{url_for('products.product', product_id=post.id)}}">{{post.product_name}}</a>
+                </h2>
+                <a href="{{url_for('users.user_posts', email=post.author.email)}}">Written By: {{post.author.name}} {{post.author.surname}}</a>
+                <p>Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
+                <h3>Price: {{post.product_price}}</h3>
+                <a href="{{url_for('products.product', product_id=post.id)}}" class="btn btn-primary">Product here</a>
+            </div>
+        </div>
+    {% endfor %}
+    
+    <nav aria-label="Page Navigation example">
+        <ul class="pagination justify-content-center">
+            {% for page_num in product_posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
+                {% if product_posts.page == page_num %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="url_for('core.index', page=page_num)">{{page_num}}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item"> 
+                        <a class="page-link" href="url_for('core.index', page=page_num)">{{page_num}}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        
+    </nav>
 {% endblock %}
+

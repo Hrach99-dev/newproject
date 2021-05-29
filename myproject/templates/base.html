@@ -24,7 +24,7 @@
             </li>
             {% if current_user.is_authenticated %}
             <li class="nav-link">
-              <a class="text-decoration-none" href="#">Add Product</a>
+              <a class="text-decoration-none" href="{{url_for('products.add_product')}}">Add Product</a>
             </li>
             <li class="nav-link">
               <a class="text-decoration-none" href="{{url_for('users.account')}}">My Account</a>

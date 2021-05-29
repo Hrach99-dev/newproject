@@ -8,22 +8,29 @@
     <div class="col">
         <div class="h-100 p-5 bg-light border rounded-3 text-center">
             <h1>Welcome to the page for {{user.name}}</h1>
-            <img src="{{url_for('static', filename='profile_pics/'user.profile_image)}}">
+            <img src="{{url_for('static', filename='profile_pics/'+user.profile_image)}}">
         </div>
     </div>
-    {% for post in product_posts.items() %}
-        <h2><a href="{{url_for('product_posts.product_post', product_post_id=post.id)}}">{{post.product_name}}</a></h2>
-        Written By: <a href="{{url_for(users.user_posts, email=post.author.email)}}">{{post.author.name}} {{post.author.surname}}</a>
-        <p class="text-muted">Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
-        <br>
-        <p>{{post.product_info}}</p>
-        <p>{{post.product_price}}</p>
-        <br>
+
+    {% for post in product_posts.items %}
+    <div class="card">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h3>
+                <a class="card-title" href="{{url_for('products.product', product_id=post.id)}}">{{post.product_name}}</a>
+            </h3>
+            <p>{{post.product_info}}</p>
+            <p>Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
+            <h4>Price: {{post.product_price}}</h4>
+            <a href="{{url_for('products.product', product_id=post.id)}}" class="btn btn-primary">Product here</a>
+        </div>
+    </div>
+        
     {% endfor %}
 
     <nav aria-label="Page Navigation example">
         <ul class="pagination justify-content-center">
-            {% for page_num in product_posts.iter_pages(left_edge=1,right_egde=1,left_current=1,right_current=2) %}
+            {% for page_num in product_posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
                 {% if product_posts.page == page_num %}
                     <li class="page-item disabled">
                         <a class="page-link" href="url_for('users.user_posts', email=user.email, page=page_num)">{{page_num}}</a>

@@ -27,7 +27,10 @@ login_manager.login_view = 'users.login'
 from myproject.core.views import core
 from myproject.error_pages.errorhandler import errorhandler
 from myproject.users.views import users
+from myproject.product.views import products
+
 
 app.register_blueprint(core)
 app.register_blueprint(errorhandler)
 app.register_blueprint(users)
+app.register_blueprint(products)
