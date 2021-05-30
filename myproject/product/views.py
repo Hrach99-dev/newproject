@@ -1,9 +1,10 @@
 from flask import render_template, url_for, abort,redirect, request, Blueprint, flash
 from flask_login import current_user, login_required
 from myproject import db
+import myproject
 from myproject.modles import Product
 from myproject.product.forms import ProductForm
-
+from myproject.product.product_picture_handler import add_product_pic
 
 products = Blueprint('products', __name__)
 
@@ -14,10 +15,21 @@ def add_product():
     
     form = ProductForm()
     if form.validate_on_submit():
+
+        
+        pic = None
+        if form.product_picture.data:
+            product_name = form.product_name + str(current_user.id)
+            pic = add_product_pic(form.product_picture.data, product_name)
+            
+
         my_product = Product(product_name=form.product_name.data,
-                        product_info=form.product_info.data,
-                        product_price=form.product_price.data,
-                        user_id=current_user.id)
+                            product_info=form.product_info.data,
+                            product_price=form.product_price.data,
+                            user_id=current_user.id,
+                            )
+        
+        my_product.product_image=pic
 
         db.session.add(my_product)
         db.session.commit()

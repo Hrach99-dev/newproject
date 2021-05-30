@@ -47,7 +47,7 @@ class Product(db.Model, UserMixin):
     product_name = db.Column(db.String(64), nullable=False)
     product_info = db.Column(db.Text, nullable=False)
     product_price = db.Column(db.String(64), nullable=False)
-    # product_image = db.Column(db.String(128), nullable=False)
+    product_image = db.Column(db.String(128), nullable=False, default='default_product_image.png')
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __init__(self, product_name, product_info, product_price, user_id) -> None:

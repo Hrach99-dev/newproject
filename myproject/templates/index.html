@@ -13,7 +13,7 @@
 
     {% for post in product_posts.items%}
         <div class="card">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="{{url_for('static', filename='product_pics/'+post.product_name)}}" class="card-img-top">
             <div class="card-body">
                 <h2>
                     <a class="card-title" href="{{url_for('products.product', product_id=post.id)}}">{{post.product_name}}</a>
