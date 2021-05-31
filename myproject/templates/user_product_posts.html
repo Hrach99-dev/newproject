@@ -8,25 +8,30 @@
     <div class="col">
         <div class="h-100 p-5 bg-light border rounded-3 text-center">
             <h1>Welcome to the page for {{user.name}}</h1>
-            <img src="{{url_for('static', filename='profile_pics/'+user.profile_image)}}">
+            <img src="{{url_for('static', filename='profile_pics/'+user.profile_image)}}" height="200px">
         </div>
     </div>
 
-    {% for post in product_posts.items %}
-    <div class="card">
-        <img src="{{url_for('static', filename='product_pics/'+post.product_name+)}}" class="card-img-top">
-        <div class="card-body">
-            <h3>
-                <a class="card-title" href="{{url_for('products.product', product_id=post.id)}}">{{post.product_name}}</a>
-            </h3>
-            <p>{{post.product_info}}</p>
-            <p>Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
-            <h4>Price: {{post.product_price}}</h4>
-            <a href="{{url_for('products.product', product_id=post.id)}}" class="btn btn-primary">Product here</a>
-        </div>
-    </div>
+    <div class="row">
+        {% for post in product_posts.items %}
+            <div class="col-4">
+                <div class="card">
+                    <img src="{{url_for('static', filename='product_pics/'+post.product_image)}}" class="card-img-top">
+                    <div class="card-body">
+                        <h3>
+                            <a class="card-title" href="{{url_for('products.product', product_id=post.id)}}">{{post.product_name}}</a>
+                        </h3>
+                        <p>{{post.product_info}}</p>
+                        <p>Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
+                        <h4>Price: {{post.product_price}}</h4>
+                        <a href="{{url_for('products.product', product_id=post.id)}}" class="btn btn-primary">Product here</a>
+                    </div>
+                </div>
+            </div>
         
-    {% endfor %}
+        {% endfor %}
+    </div>
+    
 
     <nav aria-label="Page Navigation example">
         <ul class="pagination justify-content-center">

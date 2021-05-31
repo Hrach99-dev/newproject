@@ -14,28 +14,28 @@ products = Blueprint('products', __name__)
 def add_product():
     
     form = ProductForm()
+    pic=None
+    product_image = None
     if form.validate_on_submit():
-
         
-        pic = None
         if form.product_picture.data:
-            product_name = form.product_name + str(current_user.id)
-            pic = add_product_pic(form.product_picture.data, product_name)
-            
+            pic = add_product_pic(form.product_picture.data, form.product_name.data)
+
 
         my_product = Product(product_name=form.product_name.data,
                             product_info=form.product_info.data,
                             product_price=form.product_price.data,
                             user_id=current_user.id,
                             )
+        my_product.product_image = pic
         
-        my_product.product_image=pic
-
         db.session.add(my_product)
         db.session.commit()
-        flash('Product Posted')
+        product_image = url_for('static', filename='product_pics/'+my_product.product_image)
         return redirect(url_for('core.index'))
-    return render_template('add_product.html', form=form)
+        
+    
+    return render_template('add_product.html',product_image=product_image, form=form)
 
 
 @products.route('/<int:product_id>')

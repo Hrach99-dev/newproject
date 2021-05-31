@@ -10,21 +10,25 @@
             <h1>Welcome</h1>
         </div>
     </div>
-
-    {% for post in product_posts.items%}
-        <div class="card">
-            <img src="{{url_for('static', filename='product_pics/'+post.product_name)}}" class="card-img-top">
-            <div class="card-body">
-                <h2>
-                    <a class="card-title" href="{{url_for('products.product', product_id=post.id)}}">{{post.product_name}}</a>
-                </h2>
-                <a href="{{url_for('users.user_posts', email=post.author.email)}}">Written By: {{post.author.name}} {{post.author.surname}}</a>
-                <p>Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
-                <h3>Price: {{post.product_price}}</h3>
-                <a href="{{url_for('products.product', product_id=post.id)}}" class="btn btn-primary">Product here</a>
+    <div class="row justify-content-between">
+        {% for post in product_posts.items%}
+            <div class="col-4">
+                <div class="card">
+                    <img src="{{url_for('static', filename='product_pics/'+post.product_image)}}" class="card-img-top" height="200px">
+                    <div class="card-body">
+                        <h2>
+                            <a class="card-title" href="{{url_for('products.product', product_id=post.id)}}">{{post.product_name}}</a>
+                        </h2>
+                        <a href="{{url_for('users.user_posts', email=post.author.email)}}">Written By: {{post.author.name}} {{post.author.surname}}</a>
+                        <p>Published on: {{post.date.strftime('%Y-%m-%d')}}</p>
+                        <h3>Price: {{post.product_price}}</h3>
+                        <a href="{{url_for('products.product', product_id=post.id)}}" class="btn btn-primary">Product here</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+    
     
     <nav aria-label="Page Navigation example">
         <ul class="pagination justify-content-center">

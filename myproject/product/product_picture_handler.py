@@ -9,6 +9,7 @@ def add_product_pic(pic_upload, product_name):
     ext_type = filename.split('.')[-1]
     storage_filename = str(product_name)+'.'+ext_type
 
+    
     filepath = os.path.join(current_app.root_path, 'static/product_pics', storage_filename)
 
     output_size = (200,200)

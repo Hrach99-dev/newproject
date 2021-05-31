@@ -1,4 +1,4 @@
-from flask import flash, request, render_template, redirect, url_for, Blueprint
+from flask import flash, request, render_template, redirect, url_for, Blueprint, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from myproject import db
 from myproject.modles import User, Product
@@ -22,7 +22,6 @@ def register():
 
         db.session.add(user)
         db.session.commit()
-        flash('Thanks for registration!')
         return redirect(url_for('users.login'))
 
     return render_template('register.html', form=form)
@@ -35,9 +34,12 @@ def login():
     if form.validate_on_submit():
 
         user = User.query.filter_by(email=form.email.data).first()
+
+        if user is None:
+            return redirect(url_for('users.login'))
+        
         if user.check_password(form.password.data) and user is not None:
             login_user(user)
-            flash('Log in Success!')
 
             next = request.args.get('next')
 
@@ -45,6 +47,8 @@ def login():
                next = url_for('core.index') 
             
             return redirect(next)
+        
+            
             
     return render_template('login.html', form=form)
 
@@ -72,7 +76,6 @@ def account():
         current_user.phone = form.phone.data
         current_user.email = form.email.data
         db.session.commit()
-        flash('User Account Updated')
         return redirect(url_for('users.account'))
 
     elif request.method == 'GET':
