@@ -23,6 +23,8 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128))
 
     products = db.relationship('Product', backref='author', lazy=True)
+    buyers = db.relationship('Buyer', backref='author', lazy=True)
+
 
     def __init__(self, name, surname, phone, email, password) -> None:
         self.name = name
@@ -38,8 +40,11 @@ class User(db.Model, UserMixin):
         return f'User - {self.name} {self.surname}'
 
 
+
 class Product(db.Model, UserMixin):
     
+    __tablename__ = 'products'
+
     users = db.relationship(User)
 
     id = db.Column(db.Integer, primary_key=True)
@@ -50,6 +55,8 @@ class Product(db.Model, UserMixin):
     product_image = db.Column(db.String(128), nullable=False, default='default_product_image.png')
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
+    buyers = db.relationship('Buyer', backref='products', lazy=True)
+
     def __init__(self, product_name, product_info, product_price, user_id) -> None:
         self.product_name = product_name
         self.product_info = product_info
@@ -58,4 +65,19 @@ class Product(db.Model, UserMixin):
     
     def __repr__(self) -> str:
         return f'Product {self.product_name} - Price: {self.product_price}'
-        
+
+
+
+class Buyer(db.Model, UserMixin):
+
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    prod_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+
+    def __init__(self, user_id, prod_id):
+        self.user_id = user_id
+        self.prod_id = prod_id
+
+    def __repr__(self) -> str:
+        return f'Product id {self.prod_id}, User id {self.user_id}'

@@ -1,0 +1,13 @@
+<div class="col-3">
+                            <div class="card bg-light">
+                                <img src="{{url_for('static', filename='product_pics/'+my_product.products.product_image)}}" class="card-img-top" height="200px">
+                                <div class="card-body">
+                                    <h2>
+                                        <a class="card-title" href="{{url_for('products.product', product_id=my_product.products.id)}}">{{my_product.products.product_name}}</a>
+                                    </h2>
+                                    
+                                    <p>Published on: {{my_product.products.date.strftime('%Y-%m-%d')}}</p>
+                                    <h3>Price: {{my_product.products.product_price}}</h3>
+                                </div>
+                            </div>
+                        </div>

@@ -1,8 +1,7 @@
 from flask import render_template, url_for, abort,redirect, request, Blueprint, flash
 from flask_login import current_user, login_required
 from myproject import db
-import myproject
-from myproject.modles import Product
+from myproject.modles import Product, Buyer
 from myproject.product.forms import ProductForm
 from myproject.product.product_picture_handler import add_product_pic
 
@@ -82,3 +81,19 @@ def delete_product(product_id):
     db.session.commit()
     flash('Product Deleted')
     return redirect(url_for('core.index'))
+
+
+
+@products.route('/<int:product_id>/buy', methods=['GET','POST'])
+@login_required
+def buy_product(product_id):
+    
+
+    buyer = Buyer(user_id=current_user.id, prod_id=product_id)
+    db.session.add(buyer)
+    db.session.commit()
+
+    
+    return redirect(url_for('products.shopping'))
+
+

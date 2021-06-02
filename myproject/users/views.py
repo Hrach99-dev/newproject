@@ -1,7 +1,7 @@
 from flask import flash, request, render_template, redirect, url_for, Blueprint, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from myproject import db
-from myproject.modles import User, Product
+from myproject.modles import User, Product, Buyer
 from myproject.users.forms import LoginForm, RegisterForm, UpdateUserForm
 from myproject.users.picture_handler import add_profile_pic
 
@@ -94,3 +94,13 @@ def user_posts(email):
     user = User.query.filter_by(email=email).first_or_404()
     product_posts = Product.query.filter_by(author=user).order_by(Product.date.desc()).paginate(page=page,per_page=5)
     return render_template('user_product_posts.html', product_posts=product_posts, user=user)
+
+
+
+@users.route('/shopping')
+@login_required
+def shopping():
+
+    products_list = Buyer.query.filter_by(user_id=current_user.id)
+
+    return render_template('shopping.html', products_list=products_list)
