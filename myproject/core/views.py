@@ -9,8 +9,8 @@ core = Blueprint('core', __name__)
 @core.route('/')
 @core.route('/home')
 def index():
-    page = request.args.get('page',1,type=int)
-    product_posts = Product.query.order_by(Product.date.desc()).paginate(page=page,per_page=5)
+    
+    product_posts = Product.query.order_by(Product.date.desc())
     return render_template('index.html', product_posts=product_posts)
 
 @core.route('/about')

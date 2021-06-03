@@ -54,9 +54,13 @@ def update_product(product_id):
 
     form = ProductForm()
     if form.validate_on_submit():
+        if form.product_picture.data:
+            pic = add_product_pic(form.product_picture.data, form.product_name.data)
+
         my_product.product_name = form.product_name.data
         my_product.product_info = form.product_info.data
-        my_product.product_price = form.product_price.data  
+        my_product.product_price = form.product_price.data
+        my_product.product_image = pic
         db.session.commit()
         flash('Product Updated')
         return redirect(url_for('products.product', product_id=my_product.id))
@@ -94,6 +98,6 @@ def buy_product(product_id):
     db.session.commit()
 
     
-    return redirect(url_for('products.shopping'))
+    return redirect(url_for('users.shopping'))
 
 

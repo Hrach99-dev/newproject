@@ -7,6 +7,7 @@
     <div class="col">
         <div class="h-100 bg-light border rounded-3 text-center">
             <div class="row ">
+                <h3>Product</h3>
                 {% if products_list %}
                     {% for my_product in products_list %}
                         <div class="col-3">
@@ -22,9 +23,7 @@
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}  
-                {% else %}
-                        <h1>Your basket is empty!!!</h1>
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>

@@ -90,9 +90,9 @@ def account():
 
 @users.route("/<email>")
 def user_posts(email):
-    page = request.args.get('page',1,type=int)
+    
     user = User.query.filter_by(email=email).first_or_404()
-    product_posts = Product.query.filter_by(author=user).order_by(Product.date.desc()).paginate(page=page,per_page=5)
+    product_posts = Product.query.filter_by(author=user).order_by(Product.date.desc())
     return render_template('user_product_posts.html', product_posts=product_posts, user=user)
 
 
@@ -102,5 +102,4 @@ def user_posts(email):
 def shopping():
 
     products_list = Buyer.query.filter_by(user_id=current_user.id)
-
     return render_template('shopping.html', products_list=products_list)

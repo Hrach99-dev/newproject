@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row">
-        {% for post in product_posts.items%}
+        {% for post in product_posts%}
             <div class="col-3">
                 <div class="card">
                     <img src="{{url_for('static', filename='product_pics/'+post.product_image)}}" class="card-img-top" height="200px">
@@ -28,23 +28,5 @@
             </div>
         {% endfor %}
     </div>
-    
-    
-    <nav aria-label="Page Navigation example">
-        <ul class="pagination justify-content-center">
-            {% for page_num in product_posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
-                {% if product_posts.page == page_num %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="url_for('core.index', page=page_num)">{{page_num}}</a>
-                    </li>
-                {% else %}
-                    <li class="page-item"> 
-                        <a class="page-link" href="url_for('core.index', page=page_num)">{{page_num}}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-        
-    </nav>
 {% endblock %}
 

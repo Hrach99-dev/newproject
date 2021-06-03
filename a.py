@@ -1,19 +1,19 @@
-from myproject.modles import Buyer, User
+from myproject.users.views import user_posts
+from myproject.modles import Buyer, User, Product
 from myproject import db
 
-user = User.query.filter_by(name='Gal').first()
-a = Buyer.query.filter_by(user_id=user.id)
 
-for i in a:
-    print(i)
-
+a = Buyer.query.all()
+u = User.query.all()
+p = Product.query.all()
 
 
 
 
 
 
-# for i in a:
-#     db.session.delete(i)
-#     db.session.commit()
-# db.session.commit()
+for i in u:
+    db.session.delete(i)
+    db.session.commit()
+db.session.commit()
+print(u)
